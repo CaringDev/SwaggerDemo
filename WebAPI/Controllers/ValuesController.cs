@@ -8,7 +8,7 @@ namespace SwaggerDemo.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [Produces("application/json")]
-    public class ValuesController : Controller
+    public class ValuesController : ControllerBase
     {
         /// <summary>
         /// Gets the APIs most valuable values
@@ -37,7 +37,7 @@ namespace SwaggerDemo.WebAPI.Controllers
             {
                 return NotFound();
             }
-            
+
             return Ok($"value {id}");
         }
 

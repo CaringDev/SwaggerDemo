@@ -7,7 +7,7 @@ using SwaggerDemo.WebAPI.Models;
 namespace SwaggerDemo.WebAPI.Controllers
 {
     [Route("api/complex")]
-    public class ComplexController : Controller
+    public class ComplexController
     {
         [HttpPost]
         public void Create([FromBody] Complex model)
