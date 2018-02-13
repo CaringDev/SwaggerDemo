@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.IO;
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +23,12 @@ namespace SwaggerDemo.WebAPI
             services.AddMvcCore()
                 .AddApiExplorer()
                 .AddJsonFormatters();
-            services.AddSwaggerGen(_ => { _.SwaggerDoc("v1", null); });
+            services.AddSwaggerGen(
+                _ =>
+                    {
+                        _.SwaggerDoc("v1", null);
+                        _.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "WebAPI.xml"));
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

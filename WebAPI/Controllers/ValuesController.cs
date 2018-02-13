@@ -7,7 +7,9 @@ namespace SwaggerDemo.WebAPI.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // GET api/values
+        /// <summary>
+        /// Gets the APIs most valuable values
+        /// </summary>
         [HttpGet]
         public IEnumerable<string> Get()
         {
