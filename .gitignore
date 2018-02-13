@@ -1,5 +1,6 @@
 ﻿*.user
-/.vs
-/.vscode
+/.build/
+/.vs/
+/.vscode/
 bin/
 obj/
