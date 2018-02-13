@@ -1,14 +1,13 @@
-﻿using System;
-using System.IO;
-
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using NJsonSchema;
+
 using Newtonsoft.Json.Converters;
 
-using Swashbuckle.AspNetCore.Swagger;
+using NSwag.AspNetCore;
 
 namespace SwaggerDemo.WebAPI
 {
@@ -28,15 +27,6 @@ namespace SwaggerDemo.WebAPI
                 .AddApiExplorer()
                 .AddJsonFormatters()
                 .AddJsonOptions(_ => { _.SerializerSettings.Converters.Add(new StringEnumConverter()); });
-
-            services.AddSwaggerGen(
-                _ =>
-                    {
-                        _.SwaggerDoc("v1", new Info { Title = "WebAPI", Version = "v1", Contact = new Contact { Name = "CaringDev" } });
-                        _.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "WebAPI.xml"));
-                        _.IgnoreObsoleteActions();
-                        _.DescribeAllEnumsAsStrings();
-                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,20 +34,16 @@ namespace SwaggerDemo.WebAPI
         {
             if (env.IsDevelopment())
             {
-                app
-                    .UseDeveloperExceptionPage()
-                    .UseSwaggerUI(
-                        _ =>
-                            {
-                                _.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI V1");
-                                _.ShowJsonEditor();
-                                _.EnabledValidator();
-                            });
+                app.UseDeveloperExceptionPage().UseSwaggerUi(
+                    typeof(Startup).Assembly,
+                    s =>
+                        {
+                            s.GeneratorSettings.DefaultEnumHandling = EnumHandling.String;
+                            s.UseJsonEditor = true;
+                        });
             }
 
-            app
-                .UseMvc()
-                .UseSwagger();
+            app.UseMvc();
         }
     }
 }
