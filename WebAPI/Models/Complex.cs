@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SwaggerDemo.WebAPI.Models
 {
@@ -32,6 +33,7 @@ namespace SwaggerDemo.WebAPI.Models
         /// </summary>
         public Complex Nested { get; set; }
 
+        [Required]
         public UserGroupPlatform Location { get; set; }
 
         public Financing EntryFee { get; set; }

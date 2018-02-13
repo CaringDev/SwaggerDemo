@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using Newtonsoft.Json.Converters;
+
+using Swashbuckle.AspNetCore.Swagger;
+
 namespace SwaggerDemo.WebAPI
 {
     public class Startup
@@ -22,12 +26,16 @@ namespace SwaggerDemo.WebAPI
         {
             services.AddMvcCore()
                 .AddApiExplorer()
-                .AddJsonFormatters();
+                .AddJsonFormatters()
+                .AddJsonOptions(_ => { _.SerializerSettings.Converters.Add(new StringEnumConverter()); });
+
             services.AddSwaggerGen(
                 _ =>
                     {
-                        _.SwaggerDoc("v1", null);
+                        _.SwaggerDoc("v1", new Info { Contact = new Contact { Name = "CaringDev" } });
                         _.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "WebAPI.xml"));
+                        _.IgnoreObsoleteActions();
+                        _.DescribeAllEnumsAsStrings();
                     });
         }
 
