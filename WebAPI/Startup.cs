@@ -32,7 +32,7 @@ namespace SwaggerDemo.WebAPI
             services.AddSwaggerGen(
                 _ =>
                     {
-                        _.SwaggerDoc("v1", new Info { Contact = new Contact { Name = "CaringDev" } });
+                        _.SwaggerDoc("v1", new Info { Title = "WebAPI", Version = "v1", Contact = new Contact { Name = "CaringDev" } });
                         _.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "WebAPI.xml"));
                         _.IgnoreObsoleteActions();
                         _.DescribeAllEnumsAsStrings();
@@ -46,7 +46,13 @@ namespace SwaggerDemo.WebAPI
             {
                 app
                     .UseDeveloperExceptionPage()
-                    .UseSwaggerUI(_ => { _.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI V1"); });
+                    .UseSwaggerUI(
+                        _ =>
+                            {
+                                _.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI V1");
+                                _.ShowJsonEditor();
+                                _.EnabledValidator();
+                            });
             }
 
             app

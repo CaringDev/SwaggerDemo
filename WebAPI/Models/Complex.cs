@@ -28,11 +28,6 @@ namespace SwaggerDemo.WebAPI.Models
     {
         public DateTimeOffset Timestamp { get; set; }
 
-        /// <summary>
-        /// Can be null (obviously)
-        /// </summary>
-        public Complex Nested { get; set; }
-
         [Required]
         public UserGroupPlatform Location { get; set; }
 
