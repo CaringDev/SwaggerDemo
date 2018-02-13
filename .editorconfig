@@ -1,0 +1,10 @@
+﻿[*]
+charset = utf-8-bom
+end_of_line = crlf
+indent_style = space
+insert_final_newline = false
+trim_trailing_whitespace = true
+dotnet_sort_system_directives_first = true
+
+[*.??proj]
+indent_size = 2
