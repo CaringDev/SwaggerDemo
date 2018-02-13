@@ -17,7 +17,10 @@ namespace SwaggerDemo.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvcCore()
+                .AddApiExplorer()
+                .AddJsonFormatters();
+            services.AddSwaggerGen(_ => { _.SwaggerDoc("v1", null); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,10 +28,14 @@ namespace SwaggerDemo.WebAPI
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app
+                    .UseDeveloperExceptionPage()
+                    .UseSwaggerUI(_ => { _.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI V1"); });
             }
 
-            app.UseMvc();
+            app
+                .UseMvc()
+                .UseSwagger();
         }
     }
 }
