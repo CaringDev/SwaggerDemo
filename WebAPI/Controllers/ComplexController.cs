@@ -14,7 +14,7 @@ namespace SwaggerDemo.WebAPI.Controllers
         {
         }
 
-        [HttpPut, Obsolete]
+        [HttpPut, Obsolete, ApiExplorerSettings(IgnoreApi = true)]
         public void WrongCreate(Complex model)
         {
         }
